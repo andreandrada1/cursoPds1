@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.andreandrada.cursoPds1.domain.Categoria;
+import com.andreandrada.cursoPds1.domain.Cidade;
+import com.andreandrada.cursoPds1.domain.Estado;
 import com.andreandrada.cursoPds1.domain.Produto;
 import com.andreandrada.cursoPds1.repositories.CategoriaRepository;
+import com.andreandrada.cursoPds1.repositories.CidadeRepository;
+import com.andreandrada.cursoPds1.repositories.EstadoRepository;
 import com.andreandrada.cursoPds1.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -20,6 +24,12 @@ public class CursoPds1Application implements CommandLineRunner{
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoPds1Application.class, args);
@@ -47,9 +57,23 @@ public class CursoPds1Application implements CommandLineRunner{
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		
-	
 		categoriaRepository.save(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));	
 		produtoRepository.save(Arrays.asList(p1, p2, p3));
+		
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+			
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+	
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2,c3));
+		
+		estadoRepository.save(Arrays.asList(est1,est2));
+		cidadeRepository.save(Arrays.asList(c1, c2, c3));
+		
+		
 	}
 
 
